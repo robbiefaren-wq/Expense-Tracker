@@ -1,0 +1,328 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg: #f1f3f6;
+  --color-surface: #fff;
+  --color-primary: #3989a3;
+  --color-primary-hover: #2f748b;
+  --color-text-primary: #17191d;
+  --color-text-secondary: #667085;
+  --color-income: #39865d;
+  --color-income-bg: #e0f4e8;
+  --color-expense: #a34d50;
+  --color-expense-bg: #fbe8e8;
+  --color-border: #e0e3e8;
+  --color-filter-active: #737e8d;
+  --color-shadow: 5px 10px 10px rgba(25, 35, 45, 0.10);
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 19px;
+  color: #000;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.dashboard {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+header {
+  border-bottom: 1px solid var(--color-border);
+  min-height: 50px;
+  padding: 20px 0;
+}
+
+.header__logo {
+  font-size: 22px;
+  font-weight: 700;
+  padding-top: 5px;
+}
+
+.header__dashboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard__profile-bar {
+  display: flex;
+  gap: 15px;
+}
+
+.dashboard__avatar > img {
+  width: 35px;
+  width: 35px;
+  border-radius: 50%;
+
+}
+
+main {
+  padding-top: 30px;
+  background-color: var(--color-bg);
+  min-height: 100vh;
+}
+
+.dashboard__stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-card {
+  width: 400px;
+  height: 170px;
+  box-shadow: var(--color-shadow);
+  border-radius: 20px;
+  padding-left: 25px;
+  background-color: var(--color-surface);
+}
+
+.stat-card__title {
+  font-size: 20px;
+  margin-top: 30px;
+}
+
+.stat-card__amount {
+  font-size: 35px;
+  font-weight: 700;
+  margin-top: 15px;
+}
+
+.stat-card__badge.total {
+  display: inline-block;
+  font-size: 14px;
+  margin-top: 15px;
+  background-color: #b2e9b2;
+  color: #138513;
+  padding: 5px 10px;
+  border-radius: 30px;
+}
+
+.stat-card.badges {
+  position: relative;
+}
+
+.stat-card__badge.arrow {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: 12%;
+  left: 80%;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-card__badge.arrow--income {
+  background-color: #83e0ae59;
+  color: green;
+}
+.stat-card__badge.arrow--expense {
+  background-color: rgba(235, 162, 162, 0.349);
+  color: red;
+}
+
+.transactions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+.transactions__filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.transaction__filter {
+  font-size: 18px;
+  padding: 5px 15px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+}
+
+.transaction__filter.active {
+  background-color: var(--color-filter-active);
+  color: var(--color-bg);
+  border: none;
+  cursor: default;
+}
+
+.transaction__add-button {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border: none;
+  font-size: 18px;
+  border-radius: 10px;
+  padding: 10px 15px;
+  transform: background-color 0.3s ease;
+}
+.transaction__add-button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.transactions__table {
+  width: 100%;
+  background-color: var(--color-surface);
+  margin-top: 40px;
+  border: none;
+  border-radius: 10px;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-size: 16px;
+}
+
+.transactions__header,
+.transactions__body {
+  color: var(--color-text-secondary);
+}
+
+.transactions__body {
+  color: var(--color-text-primary);
+}
+
+.transactions__cell {
+  width: 25%;
+  padding: 12px 20px;
+  text-align: center;
+  font-weight: 400;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.transactions__cell:first-child {
+  text-align: left;
+}
+
+.transactions__cell--amount {
+  text-align: right;
+}
+
+.transactions__cell--income {
+  color: var(--color-income);
+}
+
+.transactions__cell--expense {
+  color: var(--color-expense);
+}
+
+.modal {
+  position: fixed;
+  z-index: 100;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  min-height: auto;
+  box-shadow: var(--color-shadow);
+
+  background-color: var(--color-surface);
+  padding: 25px;
+  border-radius: 20px;
+}
+
+.hide {
+  display: none;
+}
+
+.modal__title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal__label {
+  font-size: 18px;
+}
+
+.modal__input {
+  font-size: 16px;
+  padding: 7px 10px;
+}
+
+.modal__operation {
+  margin-bottom: 5px;
+}
+
+.modal__operation-title {
+  margin-bottom: 5px;
+}
+
+.modal__btn {
+  font-size: 17px;
+  padding: 8px 48px;
+  border: 1px solid;
+  border-radius: 8px;
+  background-color: inherit;
+  font-weight: 600;
+  transition:
+    border 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3ms ease;
+}
+
+.modal__btn--income {
+  border: 2px solid var(--color-income);
+  color: var(--color-income);
+  font-weight: 600;
+}
+.modal__btn--income:hover {
+  background-color: var(--color-income);
+  color: white;
+}
+.modal__btn--income:active {
+  background-color: inherit;
+  color: var(--color-income);
+}
+
+.modal__btn--expenses {
+  border: 2px solid var(--color-expense);
+  color: var(--color-expense);
+}
+.modal__btn--expenses:hover {
+  background-color: var(--color-expense);
+  color: white;
+}
+.modal__btn--expenses:active {
+  border: 2px solid var(--color-expense);
+  color: var(--color-expense);
+  background-color: inherit;
+}
+
+.modal__save-btn {
+  background-color: var(--color-primary);
+  color: white;
+}
+.modal__save-btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.modal__close-btn {
+  position: absolute;
+  top: 7%;
+  right: 7%;
+  background-color: inherit;
+  border: none;
+}
