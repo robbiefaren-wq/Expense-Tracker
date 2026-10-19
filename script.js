@@ -30,12 +30,12 @@ body.addEventListener("keydown", (e) => {
 
 // Selecting the type of operations.
 
-btnIncome.addEventListener("submit", (e) => {
+btnIncome.addEventListener("click", (e) => {
   e.preventDefault();
-  transactionType = "income";
+  transactionType = "click";  
 });
 
-btnExpenses.addEventListener("submit", () => {
+btnExpenses.addEventListener("click", (e) => {
   e.preventDefault();
   transactionType = "expense";
 });
