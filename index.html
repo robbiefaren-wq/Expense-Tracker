@@ -108,11 +108,11 @@
         <form action="#" class="modal__form modal__field">
           <label for="product" class="modal__label">Name: </label>
           <input type="text" name="product" id="product" placeholder="Enter a name (for example, coffee)"
-            class="modal__input">
+            class="modal__input" required>
 
           <label for="sum" class="modal__label">Sum</label>
           <input type="number" name="sum" id="sum" placeholder="Enter an amount (for example, 1 dollar)"
-            class="modal__input">
+            class="modal__input" min="1">
 
           <div class="modal__operation">
             <p class="modal__operation-title">Type of operation</p>
@@ -130,6 +130,8 @@
         </button>
       </div>
   </main>
+
+  <script src="script.js"></script>
 </body>
 
 </html>
