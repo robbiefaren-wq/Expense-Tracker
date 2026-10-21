@@ -4,12 +4,17 @@ const modalCloseBtn = document.querySelector(".modal__close-btn");
 const transactions = [
   {
     id: 1,
-    title: "Coffee", 
+    title: "Coffee",
     amount: 5,
     type: "expense",
-    date: "21.10.2026"
-  }
+    date: "21.10.2026",
+    category: "Food",
+  },
 ];
+
+const transactionsBody = document.querySelector(".transactions__body");
+
+transactionsBody.innerHTML = "";
 
 const form = document.querySelector(".modal__form");
 const productInput = document.querySelector("#product");
@@ -19,6 +24,7 @@ let transactionType = "income";
 const btnIncome = document.querySelector(".modal__btn--income");
 const btnExpenses = document.querySelector(".modal__btn--expenses");
 
+renderTransactions();
 
 // Opening and closing a modal window.
 
@@ -42,7 +48,7 @@ body.addEventListener("keydown", (e) => {
 
 btnIncome.addEventListener("click", (e) => {
   e.preventDefault();
-  transactionType = "click";  
+  transactionType = "income";
 });
 
 btnExpenses.addEventListener("click", (e) => {
@@ -69,6 +75,36 @@ form.addEventListener("submit", (e) => {
   console.log("Sum: ", sum);
   console.log("Type: ", transactionType);
 
+  let transactionObject = {
+    id: Date.now(),
+    title: product,
+    amount: sum,
+    type: transactionType,
+    date: "21.10.2026",
+    category: "category",
+  };
+
+  transactions.push(transactionObject);
+
+   renderTransactions();
+
   form.reset();
   modalDialog.classList.add("hide");
 });
+
+// Creating a table.
+
+function renderTransactions() {
+  const resultTransaction = transactions
+    .map((transaction) => {
+      return `<tr class="transactions__row">
+    <td class="transactions__cell">${transaction.date}</td>
+    <td class="transactions__cell">${transaction.title}</td>
+    <td class="transactions__cell transaction-category transaction-category__icon transaction-category__name">${transaction.category}</td>
+    <td class="transactions__cell">${transaction.amount}</td>
+  </tr>`;
+    })
+    .join("");
+
+  transactionsBody.innerHTML = resultTransaction;
+}
