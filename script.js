@@ -1,8 +1,15 @@
-// Opening and closing a modal window.
-
 const transactionAddBtn = document.querySelector(".transaction__add-button");
 const modalDialog = document.querySelector(".modal");
 const modalCloseBtn = document.querySelector(".modal__close-btn");
+const transactions = [
+  {
+    id: 1,
+    title: "Coffee", 
+    amount: 5,
+    type: "expense",
+    date: "21.10.2026"
+  }
+];
 
 const form = document.querySelector(".modal__form");
 const productInput = document.querySelector("#product");
@@ -11,6 +18,9 @@ const sumInput = document.querySelector("#sum");
 let transactionType = "income";
 const btnIncome = document.querySelector(".modal__btn--income");
 const btnExpenses = document.querySelector(".modal__btn--expenses");
+
+
+// Opening and closing a modal window.
 
 transactionAddBtn.addEventListener("click", () => {
   modalDialog.classList.remove("hide");
