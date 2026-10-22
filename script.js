@@ -27,7 +27,14 @@ let transactionType = "income";
 const btnIncome = document.querySelector(".modal__btn--income");
 const btnExpenses = document.querySelector(".modal__btn--expenses");
 
+const cardAmount = document.querySelector(".stat-card__amount");
+const cardAmountIncomes = document.querySelector(".stat-card__amount.incomes");
+const cardAmountExpenses = document.querySelector(
+  ".stat-card__amount.expenses",
+);
+
 renderTransactions();
+updateBalance();
 
 // Opening and closing a modal window.
 
@@ -87,9 +94,10 @@ form.addEventListener("submit", (e) => {
     category: "category",
   };
 
-  transactions.push(transactionObject);
+  transactions.unshift(transactionObject);
 
   renderTransactions();
+  updateBalance();
 
   form.reset();
   modalDialog.classList.add("hide");
@@ -106,7 +114,7 @@ function renderTransactions() {
     <td class="transactions__cell transaction-category transaction-category__icon transaction-category__name">${transaction.category}</td>
     <td class="transactions__cell transactions__cell--${transactionType}">${transaction.amount}</td>
     <td class="transactions__cell">
-      <button class="transactions__cell-delete-btn" data-id="${transaction.id }">❌</button>
+      <button class="transactions__cell-delete-btn" data-id="${transaction.id}">❌</button>
     </td>
   </tr>`;
     })
@@ -115,15 +123,37 @@ function renderTransactions() {
   transactionsBody.innerHTML = resultTransaction;
 }
 
-  transactionsBody.addEventListener("click", (e) => {
-    if (e.target.classList.contains("transactions__cell-delete-btn")) {
-      let dataId = Number(e.target.dataset.id);
-  
-      transactions = transactions.filter(transaction => {
-        return transaction.id !== dataId;
-      });
-    }
-    
+transactionsBody.addEventListener("click", (e) => {
+  if (e.target.classList.contains("transactions__cell-delete-btn")) {
+    let dataId = Number(e.target.dataset.id);
 
-    renderTransactions();
-  });
+    transactions = transactions.filter((transaction) => {
+      return transaction.id !== dataId;
+    });
+  }
+
+  renderTransactions();
+  updateBalance();
+});
+
+function updateBalance() {
+  const totals = transactions.reduce(
+    (acc, transaction) => {
+      if (transaction.type === "income") {
+        acc.income = acc.income + transaction.amount;
+      }
+      if (transaction.type === "expense") {
+        acc.expense = acc.expense + transaction.amount;
+      }
+
+      acc.amount = acc.income - acc.expense
+
+      return acc;
+    },
+    { amount: 0, income: 0, expense: 0 },
+  );
+
+  cardAmount.textContent = totals.amount;
+  cardAmountIncomes.textContent = totals.income;
+  cardAmountExpenses.textContent = totals.expense;
+}
