@@ -1,7 +1,7 @@
 const transactionAddBtn = document.querySelector(".transaction__add-button");
 const modalDialog = document.querySelector(".modal");
 const modalCloseBtn = document.querySelector(".modal__close-btn");
-const transactions = [
+let transactions = [
   {
     id: 1,
     title: "Coffee",
@@ -13,6 +13,9 @@ const transactions = [
 ];
 
 const transactionsBody = document.querySelector(".transactions__body");
+const transactionsDelteBtn = document.querySelector(
+  ".transactions__cell-delte-btn",
+);
 
 transactionsBody.innerHTML = "";
 
@@ -86,7 +89,7 @@ form.addEventListener("submit", (e) => {
 
   transactions.push(transactionObject);
 
-   renderTransactions();
+  renderTransactions();
 
   form.reset();
   modalDialog.classList.add("hide");
@@ -101,10 +104,26 @@ function renderTransactions() {
     <td class="transactions__cell">${transaction.date}</td>
     <td class="transactions__cell">${transaction.title}</td>
     <td class="transactions__cell transaction-category transaction-category__icon transaction-category__name">${transaction.category}</td>
-    <td class="transactions__cell">${transaction.amount}</td>
+    <td class="transactions__cell transactions__cell--${transactionType}">${transaction.amount}</td>
+    <td class="transactions__cell">
+      <button class="transactions__cell-delete-btn" data-id="${transaction.id }">❌</button>
+    </td>
   </tr>`;
     })
     .join("");
 
   transactionsBody.innerHTML = resultTransaction;
 }
+
+  transactionsBody.addEventListener("click", (e) => {
+    if (e.target.classList.contains("transactions__cell-delete-btn")) {
+      let dataId = Number(e.target.dataset.id);
+  
+      transactions = transactions.filter(transaction => {
+        return transaction.id !== dataId;
+      });
+    }
+    
+
+    renderTransactions();
+  });

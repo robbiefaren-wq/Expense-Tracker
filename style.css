@@ -202,7 +202,6 @@ main {
   width: 25%;
   padding: 12px 20px;
   text-align: center;
-  font-weight: 400;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -211,7 +210,7 @@ main {
 }
 
 .transactions__cell--amount {
-  text-align: right;
+  text-align: center;
 }
 
 .transactions__cell--income {
@@ -220,6 +219,17 @@ main {
 
 .transactions__cell--expense {
   color: var(--color-expense);
+}
+
+.transactions__cell-delete-btn {
+  background-color: inherit;
+  border: none;
+  padding-right: 20px;
+  transition: transform 0.2s ease-out;
+}
+
+.transactions__cell-delete-btn:active {
+  transform: scaleY(1.2) scaleX(1.2);
 }
 
 .modal {
