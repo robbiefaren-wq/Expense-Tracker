@@ -33,6 +33,17 @@ const cardAmountExpenses = document.querySelector(
   ".stat-card__amount.expenses",
 );
 
+const transactionFilterBtn = document.querySelectorAll(".transaction__filter");
+const transactionFilterBtnAll = document.querySelector(
+  ".transaction__filter--all",
+);
+const transactionFilterBtnIncomes = document.querySelector(
+  ".transaction__filter--incomes",
+);
+const transactionFilterBtnExpenses = document.querySelector(
+  ".transaction__filter--expenses",
+);
+
 renderTransactions();
 updateBalance();
 
@@ -105,8 +116,8 @@ form.addEventListener("submit", (e) => {
 
 // Creating a table.
 
-function renderTransactions() {
-  const resultTransaction = transactions
+function renderTransactions(listToRender = transactions) {
+  const resultTransaction = listToRender
     .map((transaction) => {
       return `<tr class="transactions__row">
     <td class="transactions__cell">${transaction.date}</td>
@@ -146,7 +157,7 @@ function updateBalance() {
         acc.expense = acc.expense + transaction.amount;
       }
 
-      acc.amount = acc.income - acc.expense
+      acc.amount = acc.income - acc.expense;
 
       return acc;
     },
@@ -157,3 +168,23 @@ function updateBalance() {
   cardAmountIncomes.textContent = totals.income;
   cardAmountExpenses.textContent = totals.expense;
 }
+
+transactionFilterBtn.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    transactionFilterBtn.forEach((button) => {
+      button.classList.remove("active");
+    });
+    if (e.target) {
+      btn.classList.add("active");
+    }
+
+    const filterValue = btn.dataset.filter;
+
+    const filteredTransactions =
+      filterValue === "all"
+        ? transactions
+        : transactions.filter((item) => item.type === filterValue);
+
+    renderTransactions(filteredTransactions);
+  });
+});
